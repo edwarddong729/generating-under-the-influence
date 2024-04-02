@@ -17,7 +17,7 @@ class CustomGenerator(torch.nn.Module):
         self.model_size = self.macberth.config.hidden_size
         self.prediction_head = TokenPredictionHead(self.model_size, vocab_size)
 
-    def forward(self, input_ids, gumbel_tau=1, requires_gumbel_out=False):
+    def forward(self, input_ids, gumbel_tau=2, requires_gumbel_out=False):
         macberth_out = self.macberth(input_ids=input_ids)
         last_token_representation = macberth_out.last_hidden_state[:, -1, :]
         max_pooling, _ = torch.max(macberth_out.last_hidden_state, dim=1)
